@@ -7,7 +7,7 @@ function showProductsList() {
     for (let i = 0; i < CategoryProducts.products.length; i++) {
         let product = CategoryProducts.products[i];
         htmlContentToAppend += `
-            
+    
         <div class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
@@ -16,19 +16,19 @@ function showProductsList() {
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <h4 class="mb-1">${product.name} - ${product.currency}${product.cost} </h4>
-                            <small class="text-muted">${product.soldCount} artículos</small>
+                            <small class="text-muted">${product.soldCount} vendidos</small>
                         </div>
                         <p class="mb-1">${product.description}</p>
                     </div>
                 </div>
         </div>
-
+   
             `
     }
         
        let domAlert= document.getElementsByClassName('alert')[0];
        domAlert.remove(); 
-       document.getElementById("products-container-list").innerHTML = htmlContentToAppend;
+       document.getElementsByTagName("main")[0].innerHTML = htmlContentToAppend;
       
 }
 
@@ -43,4 +43,5 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
     });
 });
+
 
