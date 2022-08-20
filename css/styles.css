@@ -188,3 +188,32 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+.login-content {
+  width: 50%;
+  font-size: 2vh;
+}
+
+.text-center > #logo-imagen {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 2em;
+}
+
+.login-header {
+  width: 100%;
+  font-weight: bold;
+  animation: color-header 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes color-header {
+  from {color: rgba(240, 222, 85, 0.927);}
+  to {color: rgba(12, 210, 81, 0.472);}
+}
+
+#email-user, #password-user {
+  padding: 0.5em 1em;
+  width: 100%;
+};

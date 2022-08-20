@@ -12,16 +12,25 @@
   <style>
     body {
       background-color: rgb(248, 249, 250);
-    }
+      text-align: center;
+    };
+    footer {font-size: 1em};
   </style>
 </head>
 
 <body>
   <main class="mt-5">
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div class="container login-content">
+      <div class="text-center">
+        <img src="./img/login.png" alt="lodo de eMercado" id="logo-imagen">
+        <h4 class="login-header">Iniciar sesion</h4>
+        <hr class="my-4">
       </div>
+      <div class="signin">
+        <input type="email" name="email-user" id="email-user" placeholder=" Email">
+        <input type="password" name="password-user" id="password-user" placeholder=" Contraseña">
+      </div>
+      <button class="btn btn-primary" id="btn-login">Entrar</button>
     </div>
   </main>
   <footer class="text-muted">
@@ -34,6 +43,14 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+  <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+    <p>Datos guardados correctamente</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
+    <p>Error, ingrese su email y contraseña correctamente.</p>
+  </div>
   <script src="js/login.js"></script>
 </body>
 
