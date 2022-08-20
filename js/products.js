@@ -25,9 +25,6 @@ function showProductsList() {
    
             `
     }
-        
-       let domAlert= document.getElementsByClassName('alert')[0];
-       domAlert.remove(); 
        document.getElementsByTagName("main")[0].innerHTML = htmlContentToAppend;
       
 }
