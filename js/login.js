@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if(flagVar) {
-            window.location.href = "home.html"
+            window.location.href = "home.html";
+            localStorage.setItem("user", email);
         }
 
 

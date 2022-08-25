@@ -1,5 +1,5 @@
 let CategoryProducts = [];
-const CAR_PRODUCTS = "https://japceibal.github.io/emercado-api/cats_products/101.json";
+const CAT_PRODUCTS = "https://japceibal.github.io/emercado-api/cats_products/" + localStorage.getItem("catID") +  ".json";
 
 function showProductsList() {
     let htmlContentToAppend = '<div class="text-center p-4"> <h2>Productos</h2> <p class="lead">Verás aquí todos los productos de la categoría '+ CategoryProducts.catName+ '.</p> </div> ';
@@ -7,8 +7,8 @@ function showProductsList() {
     for (let i = 0; i < CategoryProducts.products.length; i++) {
         let product = CategoryProducts.products[i];
         htmlContentToAppend += `
-    
-        <div class="list-group-item list-group-item-action cursor-active">
+
+     <div onclick="setCatID(${product.id})" class="list-group-item list-group-item-action cursor-active"> 
                 <div class="row">
                     <div class="col-3">
                         <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
@@ -21,7 +21,7 @@ function showProductsList() {
                         <p class="mb-1">${product.description}</p>
                     </div>
                 </div>
-        </div>
+    </div>
    
             `
     }
@@ -31,7 +31,7 @@ function showProductsList() {
 
 
 document.addEventListener("DOMContentLoaded", function (e) {
-    getJSONData(CAR_PRODUCTS).then(function (resultObj) {
+    getJSONData(CAT_PRODUCTS).then(function (resultObj) {
         if (resultObj.status === "ok") {
             CategoryProducts = resultObj.data;
             showProductsList(CategoryProducts);
