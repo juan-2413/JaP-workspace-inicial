@@ -5,13 +5,41 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<style>
+.checked {
+  color:orange;
 
+}
+
+
+.star-widget > input { 
+  opacity:0%; 
+} 
+
+
+.carousel, .carousel-inner > .item > img {
+  width: 70%;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon, .carousel-indicators { 
+  filter: invert(28%) sepia(95%) saturate(7443%) hue-rotate(357deg) brightness(89%) contrast(128%);
+}
+
+.carousel-control-prev-icon:hover, .carousel-control-next-icon:hover {
+  filter: invert(100%);
+  
+}
+
+
+
+
+</style>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
@@ -36,13 +64,35 @@
       </div>
     </div>
   </nav>
-  <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
-    </div>
+  <main class="container">
   </main>
+  <div class="container p-4" id="comments-box">
+  </div>
+  <div class="container p-4" id="comment-input">
+    <h4 class="mt-4">Comentar</h4>
+    <hr class="my-4">
+    <p>Tu opinión:</p>
+    <textarea class="w-50"name="user-comment" id="user-comment" cols="60" rows="5"></textarea>
+
+
+    <p>Tu puntuación:</p>
+
+    
+    <div class="star-widget w-100">
+      <input type="radio" name="score" id="rate-1">
+      <label for="rate-1" class="fa fa-star" id="checkbox"></label>
+      <input type="radio" name="score" id="rate-2">
+      <label for="rate-2" class="fa fa-star"></label>
+      <input type="radio" name="score" id="rate-3">
+      <label for="rate-3" class="fa fa-star"></label>
+      <input type="radio" name="score" id="rate-4">
+      <label for="rate-4" class="fa fa-star"></label>
+      <input type="radio" name="score" id="rate-5">
+      <label for="rate-5" class="fa fa-star"></label> 
+      <button type="button ml-6" class="btn btn-default" id="reload-rate"><i class="fas fa-spinner"></i>Actualizar</button>
+     </div>
+    <button class="btn btn-primary mt-3 d-flex">Enviar</button>
+  </div>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">

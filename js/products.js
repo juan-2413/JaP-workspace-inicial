@@ -1,11 +1,12 @@
 let CategoryProducts = [];
-const CAT_PRODUCTS = "https://japceibal.github.io/emercado-api/cats_products/" + localStorage.getItem("catID") + ".json";
+const CAT_PRODUCTS = `https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}${EXT_TYPE}`;
 const ORDER_ASC_BY_PRICE = "x$-0$";
 const ORDER_DESC_BY_PRICE = "0$-x$";
 const ORDER_BY_SOLD_COUNT = "Cant.";
 let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
+
 let buscando = undefined;
 
 
@@ -37,6 +38,10 @@ function sortCategories(criteria, array) {
     return result;
 }
 
+function setProductID(id) {
+    localStorage.setItem("ProductID", id);
+    window.location = "product-info.html"
+}
 
 
 function showProductsList() {
@@ -76,7 +81,7 @@ function showProductsList() {
             
             
             htmlContentToAppend += `
-            <div onclick="setCatID(${product.id})" class="list-group-item list-group-item-action cursor-active"> 
+            <div onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active"> 
                 <div class="row">
                     <div class="col-3">
                         <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
@@ -119,9 +124,13 @@ function quitarAcento (string) {
 
 
 document.addEventListener("DOMContentLoaded", function (e) {
+
+
+
     getJSONData(CAT_PRODUCTS).then(function (resultObj) {
         if (resultObj.status === "ok") {
             CategoryProducts = resultObj.data;
+    
             showProductsList();
         }
 
