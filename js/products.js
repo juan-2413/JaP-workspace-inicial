@@ -1,5 +1,5 @@
 let CategoryProducts = [];
-const CAT_PRODUCTS = `https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}${EXT_TYPE}`;
+const CAT_PRODUCTS = `${PRODUCTS_URL}${localStorage.getItem("catID")}${EXT_TYPE}`;
 const ORDER_ASC_BY_PRICE = "x$-0$";
 const ORDER_DESC_BY_PRICE = "0$-x$";
 const ORDER_BY_SOLD_COUNT = "Cant.";

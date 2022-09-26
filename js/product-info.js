@@ -1,9 +1,19 @@
 let ProductInfo = [];
 let Comments = [];
-let score = undefined
-const PRODUCT_INFO_URL_MODIFY = `https://japceibal.github.io/emercado-api/products/${localStorage.getItem("ProductID")}${EXT_TYPE}`;
-const PRODUCT_INFO_URL_COMMENTS_MODIFY = `https://japceibal.github.io/emercado-api/products_comments/${localStorage.getItem("ProductID")}${EXT_TYPE}`;
+let Comment_id = localStorage.getItem("ProductID"); //Variable que será la clave donde se guarde el contenido del comentario realizado(valor) en el localStorage.
+let score = 0; // Variable que almacena el puntaje que seleccione el usuario.
+let Comment_Storaged = ''; //Variable donde se guarda el contenido del comentario.
+let hoy = new Date();
+let fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2); //Fecha actual
+let hora = ('0' + hoy.getHours()).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2) + ':' + ('0' + hoy.getSeconds()).slice(-2); //Hora actual
+let fechaYhora = fecha + ' ' + hora // Combinación de fecha y hora.
+const PRODUCT_INFO_URL_MODIFY = `${PRODUCT_INFO_URL}${localStorage.getItem("ProductID")}${EXT_TYPE}`;
+const PRODUCT_INFO_URL_COMMENTS_MODIFY = `${PRODUCT_INFO_COMMENTS_URL}${localStorage.getItem("ProductID")}${EXT_TYPE}`;
 
+function setProductID(id) {
+  localStorage.setItem("ProductID", id);
+  window.location = "product-info.html"
+}
 
 function showProductInfo(ProductInfo) {
   let Box_Content = document.getElementsByTagName("main")[0]
@@ -99,11 +109,80 @@ function showComments(Comments) {
 
   } else {
 
-    document.getElementById('comments-list').innerHTML += `<p>Aún no hay comentarios para este producto. Se el primero en comentar!</p> `
+    if (localStorage.getItem(`${Comment_id}`) == null) {
+
+      document.getElementById('comments-list').innerHTML += `<p>Aún no hay comentarios para este producto. Se el primero en comentar!</p> `
+
+    }
 
   }
 
+  if(localStorage.getItem(`${Comment_id}`) != null){
+
+    document.getElementById('comments-list').innerHTML += localStorage.getItem(`${Comment_id}`);
+
+  }
 }
+
+
+
+
+function ShowRelatedProducts(ProductInfo) {
+
+  let htmlContentToAppend ='';
+
+  if (ProductInfo.relatedProducts.length != 0) {
+
+      htmlContentToAppend += 
+
+      `  
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner carousel-inner2">
+    <div class="carousel-item active" data-bs-interval="2000">
+     <img onclick="setProductID(${ProductInfo.relatedProducts[0].id})" style="cursor:pointer;" src="${ProductInfo.relatedProducts[0].image}" class="card-img-top" alt="relatedProduct">
+    <div class="card-body">
+     <h5 class="card-title text-center">${ProductInfo.relatedProducts[0].name}</h5>
+     </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+      
+      `;
+
+      document.getElementById('relatedProducts').innerHTML += htmlContentToAppend
+
+    for (let i = 1; i < ProductInfo.relatedProducts.length; i++) {
+      let image_inner = ProductInfo.relatedProducts[i]
+        
+      document.getElementsByClassName('carousel-inner2')[0].innerHTML += `
+      
+      <div class="carousel-item" data-bs-interval="2000">
+       <img onclick="setProductID(${image_inner.id})" src="${image_inner.image}" style="cursor:pointer;" class="card-img-top" alt="relatedProduct">
+        <div class="card-body">
+        <h5 class="card-title text-center">${image_inner.name}</h5>
+        </div>
+      </div>
+      `
+    }
+      
+    } else {
+
+
+      document.getElementById('relatedProducts').innerHTML +=`<p>No hay productos relacionados</p> `
+
+    }    
+
+  }
+  
+
 
 
 
@@ -114,11 +193,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (resultObj.status === "ok") {
       ProductInfo = resultObj.data;
       showProductInfo(ProductInfo);
+      ShowRelatedProducts(ProductInfo);
 
       getJSONData(PRODUCT_INFO_URL_COMMENTS_MODIFY).then(function (resultObj) {
         if (resultObj.status === "ok") {
           Comments = resultObj.data;
           showComments(Comments);
+          
 
         }
 
@@ -129,6 +210,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
         let num = i;
 
         document.getElementById(`rate-${num}`).addEventListener('click', function(){
+
+          score = num;
 
           if (document.getElementById(`rate-${num}`).checked) {
 
@@ -151,15 +234,51 @@ document.addEventListener("DOMContentLoaded", function (e) {
         
       }
 
+
+
+
       document.getElementById('reload-rate').addEventListener('click', function(){
 
         for (let i = 0; i < document.getElementsByTagName('label').length; i++) {
           let star = document.getElementsByTagName('label')[i];
 
+          score = 0;
           star.classList.remove('checked')
           document.getElementsByTagName('textarea')[0].value = ''
           
         }
+
+      })
+
+
+
+
+
+
+      document.getElementById('submitComment').addEventListener('click', function(){ //Escucha de evento para mostrar el comentario hecho en pantalla
+
+          Comment_Storaged += `
+
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div class="flex-row justify-content-between">
+                <h6 class="my-0 fw-bold" id="star-content">${localStorage.getItem('user')}<small class="fw-normal"> - ${fechaYhora}- </small> ${'<span class="fas fa-star checked"></span>'.repeat(parseInt(score))}${'<span class="fas fa-star void"></span>'.repeat(5 - parseInt(score))}</h6> 
+                <small class="text-muted">${document.getElementsByTagName('textarea')[0].value}</small>
+              </div>
+            </li> `;
+
+        if (localStorage.getItem(`${Comment_id}`) == null) {
+
+          localStorage.setItem(`${Comment_id}`, Comment_Storaged);
+          location.reload();
+
+        } else {
+
+          localStorage.setItem(`${Comment_id}`, localStorage.getItem(`${Comment_id}`) + Comment_Storaged) 
+          location.reload();
+
+        }
+
+        
 
       })
 

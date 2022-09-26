@@ -42,7 +42,21 @@ let getJSONData = function(url){
 
 document.addEventListener("DOMContentLoaded", function() {
 
-  document.getElementsByClassName("nav-item")[3].innerHTML =  '<a class="nav-link" href="#">' + localStorage.getItem("user"); + '</a>'
+  document.getElementsByClassName("nav-item")[3].innerHTML =  
+
   
+  
+  `
+  
+  <li class="dropdown">  
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  ${localStorage.getItem("user")}
+</a>
+<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+  <li><a class="dropdown-item" href="./cart.html">Mi carrito</a></li>
+  <li><a class="dropdown-item" href="./my-profile.html">Mi perfil</a></li>
+  <li><a onclick="localStorage.removeItem('user')"class="dropdown-item" href="./index.html">Cerrar sesión</a></li>
+</ul>
+</li>`
 
 });
