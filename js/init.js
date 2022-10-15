@@ -40,6 +40,11 @@ let getJSONData = function(url){
     });
 }
 
+function setProductID(id) {
+  localStorage.setItem("ProductID", id);
+  window.location = "product-info.html"
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 
   document.getElementsByClassName("nav-item")[3].innerHTML =  

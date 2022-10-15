@@ -38,12 +38,6 @@ function sortCategories(criteria, array) {
     return result;
 }
 
-function setProductID(id) {
-    localStorage.setItem("ProductID", id);
-    window.location = "product-info.html"
-}
-
-
 function showProductsList() {
 
     document.getElementById("products-head").innerHTML = 'Verás aquí todos los productos de la categoría ' + CategoryProducts.catName + '.';
