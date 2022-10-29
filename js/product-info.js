@@ -15,13 +15,32 @@ function setProductID(id) {
   window.location = "product-info.html"
 }
 
+function setCartItem(obj) {
+
+  let objStoraged;
+
+  if (localStorage.getItem(`cartArticles`) === null) {
+
+    objStoraged = {articles: [obj]}
+    localStorage.setItem(`cartArticles`, JSON.stringify(objStoraged));
+
+  } else if (localStorage.getItem(`cartArticles`).includes(obj.description) === false){
+
+    objStoraged = JSON.parse(localStorage.getItem(`cartArticles`))
+    objStoraged.articles.push(obj);
+    localStorage.setItem(`cartArticles`, JSON.stringify(objStoraged)); 
+
+  }
+  window.location = './cart.html'
+}
+
 function showProductInfo(ProductInfo) {
   let Box_Content = document.getElementsByTagName("main")[0]
 
   Box_Content.innerHTML = `
     
     <div class="p-4">
-      <h2 class="mb-5">${ProductInfo.name}</h2> 
+      <h2 class="mb-5">${ProductInfo.name} <button class="btn btn-primary float-end" onclick="setCartItem(ProductInfo)">Comprar</button></h2>
       <hr class="my-4">
     </div>
 
@@ -206,6 +225,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
       })
 
+
       for (let i = 1; i <= 5; i++) {
         let num = i;
 
@@ -287,3 +307,5 @@ document.addEventListener("DOMContentLoaded", function (e) {
   }) 
 
 })
+
+
