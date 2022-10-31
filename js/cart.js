@@ -225,12 +225,12 @@ function showUserCart(USER_CART) {
           <td>${compra.name}</td>
           <td>${compra.currency} ${compra.unitCost}</td>
           <td class="col-2 tdata-input">
-          <input class="form-control" type="number" placeholder="max ${compra.count}" min="1" max="${compra.count}" name="userCount${index}" id="userCount${index}" value="${compra.count}" required>
+          <input class="form-control" type="number" placeholder="max ${compra.count}" max="${compra.count}" max="${compra.count}" name="userCount${index}" id="userCount${index}" value="${compra.count}" required>
           <div class="valid-feedback">
           Perfecto!
           </div>
           <div class="invalid-feedback cantidadFeedback">
-            Ingrese cantidad.
+            Ingrese una cantidad valida (${compra.count} max).
           </div>
           </td>
           <td class="tdata-subtotal">${compra.currency} ${parseInt(compra.count) * parseInt(compra.unitCost)}</td>
@@ -320,7 +320,7 @@ function CalcSubtotalesIndividuales() {
         let inputValue = parseInt(e.target.value); //VALOR DEL tdata QUE ACTIVA EL EVENTO INPUT.
         switch (true) {
 
-          case inputValue !== '' && inputValue > 0 && inputValue <= parseInt(USER_CART.articles[index].count):  
+          case inputValue !== '' && inputValue > 0:  
             var subtotal = `${USER_CART.articles[index].currency} ${inputValue * parseInt(USER_CART.articles[index].unitCost)}`; //CALCULO DEL SUBTOTAL DEL PRODUCTO AL QUE LE ESTOY MODIFICANDO LA CANTIDAD.
             document.getElementsByTagName("td")[tdIndex + 1].innerHTML = subtotal; //TENIENDO EN CUENTA QUE EL SUBTOTAL DE CADA PRODUCTO SE ENCUENTRA DENTRO DE UN tdata QUE ESTA EN UNA POSICIÓN MÁS ADELANTE A SU RESPECTIVO INPUT DE CANTIDAD, ...
             //SUMO tdIndex + 1 PARA QUE SE INSERTE EL NUEVO SUBTOTAL EN LA COLUMNA ADECUADA.
