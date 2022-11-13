@@ -225,7 +225,7 @@ function showUserCart(USER_CART) {
           <td>${compra.name}</td>
           <td>${compra.currency} ${compra.unitCost}</td>
           <td class="col-2 tdata-input">
-          <input class="form-control" type="number" placeholder="max ${compra.count}" max="${compra.count}" max="${compra.count}" name="userCount${index}" id="userCount${index}" value="${compra.count}" required>
+          <input class="form-control" type="number" placeholder="cant." min="1" name="userCount${index}" id="userCount${index}" value="${compra.count}" required>
           <div class="valid-feedback">
           Perfecto!
           </div>

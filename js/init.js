@@ -45,23 +45,35 @@ function setProductID(id) {
   window.location = "product-info.html"
 }
 
-document.addEventListener("DOMContentLoaded", function() {
 
+//Función para mostrar el menú desplegable
+function showDropDownMenu(nickname) {
   document.getElementsByClassName("nav-item")[3].innerHTML =  
 
-  
-  
-  `
-  
-  <li class="dropdown">  
-  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-  ${localStorage.getItem("user")}
-</a>
-<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-  <li><a class="dropdown-item" href="./cart.html">Mi carrito</a></li>
-  <li><a class="dropdown-item" href="./my-profile.html">Mi perfil</a></li>
-  <li><a onclick="localStorage.removeItem('user')"class="dropdown-item" href="./index.html">Cerrar sesión</a></li>
-</ul>
-</li>`
+  `<li class="dropdown">  
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        ${nickname}
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+        <li><a class="dropdown-item" href="./cart.html">Mi carrito</a></li>
+        <li><a class="dropdown-item" href="./my-profile.html">Mi perfil</a></li>
+        <li><a onclick="localStorage.removeItem('user')" class="dropdown-item" href="./index.html">Cerrar sesión</a></li>
+      </ul>
+  </li>`
+
+  if(nickname == null) {
+    document.getElementsByClassName('dropdown-toggle')[0].innerHTML = 'Anónimo';
+  }
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    //Si un usuario que no ha iniciado sesión intenta entrar al perfil, será redireccionado al login.
+  if(localStorage.getItem("user") == null && !window.location.href.includes('home.html')) { 
+    window.location = 'index.html'
+  }
+
+  showDropDownMenu(localStorage.getItem('user'))
 
 });

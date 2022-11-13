@@ -1,38 +1,17 @@
-function showAlertError() {
-    document.getElementById("alert-danger").classList.add("show");
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById("btn-login").addEventListener('click', function(){
-        let email = document.getElementById("email-user").value;
-        let password = document.getElementById("password-user").value;
-        let flagVar = true;
-
-        if (email == '' || email.search('@') === -1) {
-            flagVar = false;
-            showAlertError();
-        }
-
-        if (password == '') {
-            flagVar = false;
-            showAlertError();
-        }
-
-        if(flagVar) {
-            window.location.href = "home.html";
+    var form = document.getElementById('needs-validation');
+    var button = document.getElementById('btn-login');
+    
+        button.addEventListener('click', function (e) {
+            var email = document.getElementById("email-user").value;
+            
+          if (form.checkValidity()) {
+            window.location = "home.html";
             localStorage.setItem("user", email);
-        }
+          } 
 
+          form.classList.add('was-validated');
+        })
 
-
-    })
-
-
-
-
-
-
-})
 
 
 

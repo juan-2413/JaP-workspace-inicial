@@ -26,12 +26,16 @@
         <h4 class="login-header">Iniciar sesion</h4>
         <hr class="my-4">
       </div>
-      <div class="signin">
-        <input type="email" name="email-user" id="email-user" placeholder=" Email">
-        <input type="password" name="password-user" id="password-user" placeholder=" Contraseña">
-      </div>
-      <button class="btn btn-primary" id="btn-login">Entrar</button>
-    </div>
+  
+      
+        <div class="signin">
+          <form id="needs-validation" novalidate>
+          <input class="form-control" type="email" name="email-user" id="email-user" placeholder=" Email" required autocomplete="off">
+          <input class="form-control" type="password" name="password-user" id="password-user" placeholder=" Contraseña" required>
+          </div>
+          <button class="btn btn-primary" type="button" id="btn-login">Entrar</button>
+          </form>
+          </div>
   </main>
   <footer class="text-muted">
     <div class="container">

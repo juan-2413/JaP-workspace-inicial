@@ -51,10 +51,52 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div class="container m-auto">
+      <h1 class="fs-3 text-center mt-4 mb-4">Perfil</h1>
+      <hr>
+      <form id="perfil-form" novalidate> 
+      <div class="row row-cols-md-2 row-cols-1 m-auto">
+        <div class="col my-2">
+          <div class="form-floating">
+            <input class="form-control" type="text" id="nombre" autocomplete="off" required>
+            <label for="nombre">Nombre *</label>
+          </div>
+        </div>
+        <div class="col my-2">
+          <div class="form-floating">
+            <input class="form-control" type="text" id="segundo_nombre" autocomplete="off">
+            <label for="segundo_nombre">Segundo nombre</label>
+          </div>
+        </div>
+        <div class="col my-2">
+          <div class="form-floating">
+            <input class="form-control" type="text" id="primer_apellido" autocomplete="off" required>
+            <label for="primer_apellido">Primer apellido *</label>
+          </div>
+        </div>
+        <div class="col my-2">
+          <div class="form-floating">
+            <input class="form-control" type="text" id="segundo_apellido" autocomplete="off">
+            <label for="segundo_apellido">Segundo apellido</label>
+          </div>
+        </div>
+        <div class="col my-2">
+          <div class="form-floating">
+            <input class="form-control" type="tel" id="teléfono" autocomplete="off">
+            <label for="teléfono">Teléfono</label>
+          </div>
+        </div>
+        <div class="col my-2">
+          <div class="form-floating">
+            <input class="form-control" type="email" id="email" autocomplete="off" required>
+            <label for="email">Email *</label>
+          </div>
+        </div>
       </div>
+      <div class="col-md-12 text-center my-5">
+        <button class="btn btn-primary" id="btn-perfil">Guardar cambios</button>
+      </div>
+    </form>
     </div>
   </main>
   <footer class="text-muted">
