@@ -57,7 +57,7 @@ function showCategoriesList(){
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">${category.name}</h4>
+                            <h4 class="mb-1 text-break fw-normal">${category.name}</h4>
                             <small class="text-muted">${category.productCount} artículos</small>
                         </div>
                         <p class="mb-1">${category.description}</p>
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         if (resultObj.status === "ok"){
             currentCategoriesArray = resultObj.data
             showCategoriesList()
-            //sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
+            
         }
     });
 

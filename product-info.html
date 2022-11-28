@@ -67,34 +67,37 @@
   <main class="container">
   </main>
   <div class="container p-4" id="comments-box">
+    <h4 class="mt-4 text-center text-md-start">Comentarios</h4>
+    <ul class="list-group mb-3" id="comments-list"></ul>
   </div>
   <div class="container p-4" id="comment-input">
-    <h4 class="mt-4">Comentar</h4>
+    <h4 class="mt-4 text-center text-md-start">Comentar</h4>
     <hr class="my-4">
     <p>Tu opinión:</p>
-    <textarea class="w-50"name="user-comment" id="user-comment" cols="60" rows="5"></textarea>
+    <textarea class="p-2 w-100" name="user-comment" id="user-comment" rows="6"></textarea>
 
 
-    <p>Tu puntuación:</p>
+    <p class="my-4 text-center text-md-start">Tu puntuación:</p>
 
     
-    <div class="star-widget w-100">
-      <input type="radio" name="score" id="rate-1">
-      <label for="rate-1" class="fa fa-star" id="checkbox"></label>
-      <input type="radio" name="score" id="rate-2">
-      <label for="rate-2" class="fa fa-star"></label>
-      <input type="radio" name="score" id="rate-3">
-      <label for="rate-3" class="fa fa-star"></label>
-      <input type="radio" name="score" id="rate-4">
-      <label for="rate-4" class="fa fa-star"></label>
-      <input type="radio" name="score" id="rate-5">
-      <label for="rate-5" class="fa fa-star"></label> 
-      <button type="button ml-6" class="btn btn-default" id="reload-rate"><i class="fas fa-spinner"></i>Actualizar</button>
-     </div>
-    <button class="btn btn-primary mt-3 d-flex" id="submitComment">Enviar</button>
+    <div class="col star-widget w-100 text-center text-md-start">
+      <input type="radio" name="score" id="1">
+      <label for="1" class="fa fa-star" id="checkbox"></label>
+      <input type="radio" name="score" id="2">
+      <label for="2" class="fa fa-star"></label>
+      <input type="radio" name="score" id="3">
+      <label for="3" class="fa fa-star"></label>
+      <input type="radio" name="score" id="4">
+      <label for="4" class="fa fa-star"></label>
+      <input type="radio" name="score" id="5">
+      <label for="5" class="fa fa-star"></label> 
+      <div class="text-center text-md-start mx-3 my-4">
+        <button class="btn btn-primary" id="submitComment">Enviar</button>
+      </div>
+      </div>
   </div>
   <div class="container" id="relatedProducts">
-    <h4 class="mt-4">Productos relacionados</h4>
+    <h4 class="mt-4 text-center text-md-start">Productos relacionados</h4>
     <hr class="my-4">
   </div>
   <footer class="text-muted">

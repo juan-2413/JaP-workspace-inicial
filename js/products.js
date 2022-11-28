@@ -6,10 +6,11 @@ const ORDER_BY_SOLD_COUNT = "Cant.";
 let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
-
 let buscando = undefined;
 
 
+//Función que recibe un criterio de ordenación y un array como parámetro. 
+//Se ordenan los elementos del array según el criterio establecido mediante el método sort y se retorna la lista ordenada.
 function sortCategories(criteria, array) {
     let result = [];
     if (criteria === ORDER_ASC_BY_PRICE) {
@@ -38,40 +39,27 @@ function sortCategories(criteria, array) {
     return result;
 }
 
+//Función que elimina los tildes de un string y lo retorna.
+function quitarAcento(string) {
+    return string.normalize("NFD").replace(/\u0301/g, "");
+} 
+
+//Filtra y muestra los productos.
 function showProductsList() {
-
-    document.getElementById("products-head").innerHTML = 'Verás aquí todos los productos de la categoría ' + CategoryProducts.catName + '.';
-
     
     let htmlContentToAppend = '';
     for (let i = 0; i < CategoryProducts.products.length; i++) {
 
         
-        let product = CategoryProducts.products[i];
-        let name_lowerCase = product.name.toLowerCase(); //Nombre del producto en minúscula
-        let description_lowerCase = product.description.toLowerCase(); //Descripción del producto en minúscula
-        let name_without_spaces = name_lowerCase.split(' ').join(''); //Nombre del producto en minúscula y sin espacios
-        let description_without_spaces = description_lowerCase.split(' ').join(''); //Descripción del producto en minúscula y sin espacios 
-       
-        
+        let product = CategoryProducts.products[i]; //producto del array
+        let superString = product.name.toLowerCase() + product.description.toLowerCase(); //suma de el nombre y la descripción del producto en minúscula.
+        let superStringJoined = quitarAcento(superString.split(' ').join('')); // superString sin espacios y sin acentos
 
-       
-       
+
+            //Se filtran los productos.
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount)) &&
-
-            //CONJUNTO DE CONDICIONES QUE FILTRAN LOS PRODUCTOS SEGÚN LO QUE ESCRIBA EL USUARIO EN EL INPUT SEARCH
-            
-            //Nota: Cuando el usuario escribe en el input search, dicho texto será guardado en la variable "buscando" como un string y su valor se actualizará a medida que el texto insertado vaya cambiando.
-            
-            ((buscando === undefined) || 
-            (name_lowerCase.search(buscando) > -1) || 
-            (name_without_spaces.search(buscando.split(' ').join('')) > -1) || 
-            (quitarAcento(name_without_spaces).search(quitarAcento(buscando.split(' ').join(''))) > -1) || 
-            (description_lowerCase.search(buscando) > -1) || 
-            (description_without_spaces.search(buscando.split(' ').join('')) > -1) || 
-            (quitarAcento(description_without_spaces).search(quitarAcento(buscando.split(' ').join(''))) > -1) || 
-            (buscando == ''))) {   
+            (buscando === undefined || superStringJoined.includes(quitarAcento(buscando.split(' ').join(''))))) {   
             
             
             htmlContentToAppend += `
@@ -82,21 +70,22 @@ function showProductsList() {
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">${product.name} - ${product.currency}${product.cost} </h4>
+                            <h4 class="mb-1 fw-normal">${product.name} - ${product.currency}${product.cost}</h4>
                             <small class="text-muted">${product.soldCount} vendidos</small>
                         </div>
                         <p class="mb-1">${product.description}</p>
                     </div>
                 </div>
             </div>
-   
             `
         }
+
+        document.getElementById("products-head").innerHTML = `Verás aquí todos los productos de la categoría ${CategoryProducts.catName}.`;
         document.getElementById("products-list-container").innerHTML = htmlContentToAppend;
     }
 }
 
-
+//Función que ordena y muestra los productos.
 function sortAndShowProducts(sortCriteria, productsArray) {
     currentSortCriteria = sortCriteria;
 
@@ -109,39 +98,22 @@ function sortAndShowProducts(sortCriteria, productsArray) {
     showProductsList();
 }
 
- //Función que elimina los tildes contenidos en el string recibido por parámetro. Emplea la normalización NFD para adquirir cada carácter del string codificado en unicode por separado y utiliza el método replace que recibe como parámetro una expresión regular correspondiente al "acento agudo" codificado en unicode junto con el flag g para encontrar todos los tildes existentes y un string vacío el cual sustituirá cada uno de ellos.
+document.addEventListener("DOMContentLoaded", e => {
 
-function quitarAcento (string) {
-    return string.normalize("NFD").replace(/\u0301/g, "");
-  } 
-
-
-
-document.addEventListener("DOMContentLoaded", function (e) {
-
-
-
-    getJSONData(CAT_PRODUCTS).then(function (resultObj) {
+    getJSONData(CAT_PRODUCTS).then((resultObj) => {
         if (resultObj.status === "ok") {
             CategoryProducts = resultObj.data;
-    
             showProductsList();
         }
 
+        document.getElementById("sortAsc").addEventListener("click", e => sortAndShowProducts(ORDER_ASC_BY_PRICE));
 
-        document.getElementById("sortAsc").addEventListener("click", function () {
-            sortAndShowProducts(ORDER_ASC_BY_PRICE);
-        });
+        document.getElementById("sortDesc").addEventListener("click", e => sortAndShowProducts(ORDER_DESC_BY_PRICE));
 
-        document.getElementById("sortDesc").addEventListener("click", function () {
-            sortAndShowProducts(ORDER_DESC_BY_PRICE);
-        });
+        document.getElementById("sortByCount").addEventListener("click", e => sortAndShowProducts(ORDER_BY_SOLD_COUNT));
 
-        document.getElementById("sortByCount").addEventListener("click", function () {
-            sortAndShowProducts(ORDER_BY_SOLD_COUNT);
-        });
+        document.getElementById("clearRangeFilter").addEventListener("click", e => {
 
-        document.getElementById("clearRangeFilter").addEventListener("click", function () {
             document.getElementById("rangeFilterCountMin").value = "";
             document.getElementById("rangeFilterCountMax").value = "";
 
@@ -149,11 +121,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
             minCount = undefined;
             maxCount = undefined;
 
-            location.reload(); //recarga la pagina.
+            
             showProductsList();
         });
 
-        document.getElementById("rangeFilterCount").addEventListener("click", function () {
+        document.getElementById("rangeFilterCount").addEventListener("click", e => {
 
             minCount = document.getElementById("rangeFilterCountMin").value;
             maxCount = document.getElementById("rangeFilterCountMax").value;
@@ -174,32 +146,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
             showProductsList();
         });
+    
+        document.getElementById('search-input').addEventListener('input', e => {
 
-        
-        document.getElementById('search-btn').addEventListener('click', function () {
-            document.getElementById('search-input').focus();
-
-            //Escucha de evento cuyo fin es hacer que el search quede focus una vez el usuario haga click en el botón-lupa. 
-
+            buscando = document.getElementById('search-input').value //Sobreescribe el valor de la variable "buscando" por el texto que escriba el usuario.
+            buscando = buscando.toLowerCase();
+            showProductsList();
         })
-
-        document.getElementById('search-input').addEventListener('focus', function () {
-
-            //Cuando el search esté focus y por ende se haya escuchado su respectivo evento, se escuchará el evento input una vez el usuario escriba el primer carácter en el buscador.
-
-            document.getElementById('search-input').addEventListener('input', function () {
-
-                buscando = document.getElementById('search-input').value //Sobreescribe el valor de la variable "buscando" por el texto que escriba el usuario.
-
-                buscando = buscando.toLowerCase();
-
-                showProductsList();
-            })
-
-        })
-
-        
-           
 
     });
 });

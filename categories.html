@@ -40,11 +40,11 @@
   <main class="pb-5">
     <div class="text-center p-4">
       <h2>Categorías</h2>
-      <p class="lead">Verás aquí todas las categorías del sitio.</p>
+      <p class="text-center lead">Verás aquí todas las categorías del sitio.</p>
     </div>
-    <div class="container">
+    <div class="container d-flex flex-column-reverse d-md-block">
       <div class="row">
-        <div class="col text-end">
+        <div class="col d-flex d-md-inline flex-column text-md-end text-start">
           <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
             <input type="radio" class="btn-check" name="options" id="sortAsc">
             <label class="btn btn-light" for="sortAsc">A-Z</label>
@@ -57,17 +57,17 @@
       </div>
       <div class="row">
         <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
-          <div class="row container p-0 m-0">
-            <div class="col">
-              <p class="font-weight-normal text-end my-2">Cant.</p>
+          <div class="d-flex-row d-md-flex container p-0 m-0">
+            <div class="col my-2 my-md-0 mx-md-2">
+              <p class="font-weight-normal text-start text-lg-end my-2">Cant.</p>
             </div>
-            <div class="col">
+            <div class="col my-2 my-md-0 mx-md-2">
               <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
             </div>
-            <div class="col">
+            <div class="col my-2 my-md-0 mx-md-2">
               <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
             </div>
-            <div class="col-3 p-0">
+            <div class="col-3 p-0 my-sm-2">
               <div class="btn-group" role="group">
                 <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
                 <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
@@ -76,9 +76,9 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="list-group" id="cat-list-container">
-        </div>
+    </div>
+    <div class="row">
+      <div class="list-group" id="cat-list-container">
       </div>
     </div>
   </main>

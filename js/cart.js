@@ -4,9 +4,7 @@ var envio; //VARIABLE QUE GUARDA EL PORCENTAJE DEL TIPO DE ENVÍO SELECCIONADO
 let USER_CART = []; //OBJETO DONDE SE GUARDAN TODOS LOS ARTICULOS UNA VEZ TERMINADO EL PROCESO DE LA FUNCION getJSONData.
 
 
-
 function deliveryControl() {
-
   //ESTA FUNCION SE ENCARGA DE IMPRIMIR EN PANTALLA LOS APARTADOS DE DIRECCION DE ENVIO, TIPO DE ENVIO Y COSTO.
   //INTRODUCE LA PLANTILLA DE LOS APARTADOS DE DIRECCION DE ENVIO, TIPO DE ENVIO Y COSTO EN EL div#deliveryControl DEL ARCHIVO cart.html
   document.getElementById('deliveryControl').innerHTML =
@@ -214,6 +212,7 @@ function showUserCart(USER_CART) {
           <th scope="col">Costo</th>
           <th scope="col">Cantidad</th>
           <th scope="col">Subtotal</th>
+          <th scope="col"><th>
         </tr>
       </thead>
       <tbody>
@@ -234,6 +233,7 @@ function showUserCart(USER_CART) {
           </div>
           </td>
           <td class="tdata-subtotal">${compra.currency} ${parseInt(compra.count) * parseInt(compra.unitCost)}</td>
+          <td class="col-1 text-end"><button type="button" class="btn btn-outline-danger btn-lg fa fa-trash" id="${compra.name} btn"></button></td>
         </tr>
       </tbody>
     </table>
@@ -268,12 +268,15 @@ function showCartArticles() {
 //3)AGREGAR CADA ARTICULO DENTRO DEL ARRAY DEL CAMPO articles DEL OBJETO USER_CART CON EL METODO push,
 //4)LLAMAR A LA FUNCION showUserCart Y PASARLE USER_CART COMO PARAMETRO PARA MOSTRAR LOS PRODUCTOS AÑADIDOS.
 
+
   if (articles != null ) { //1
     articles.articles.forEach(article => { //2
+      if(article.name != 'Peugeot 208'){
       article.unitCost = article.cost;
       article.image = article.images[0];
       article.count = 10;
       USER_CART.articles.push(article); //3
+    }
     });
   }
   showUserCart(USER_CART); //4
@@ -360,15 +363,10 @@ function envio() {
       });
 }
 
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
   getJSONData(USER_CART_URL).then(function (resultObj) {
     if (resultObj.status === "ok") {
-      USER_CART = resultObj.data;
+      USER_CART = resultObj.data
       showCartArticles();
       CalcSubtotalesIndividuales();
       envio();

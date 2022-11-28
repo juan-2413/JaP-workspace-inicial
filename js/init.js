@@ -45,9 +45,13 @@ function setProductID(id) {
   window.location = "product-info.html"
 }
 
-
 //Función para mostrar el menú desplegable
 function showDropDownMenu(nickname) {
+
+  if(nickname == null) {
+    nickname= 'Anónimo';
+  }
+
   document.getElementsByClassName("nav-item")[3].innerHTML =  
 
   `<li class="dropdown">  
@@ -61,16 +65,12 @@ function showDropDownMenu(nickname) {
       </ul>
   </li>`
 
-  if(nickname == null) {
-    document.getElementsByClassName('dropdown-toggle')[0].innerHTML = 'Anónimo';
-  }
 }
-
 
 document.addEventListener("DOMContentLoaded", function() {
 
     //Si un usuario que no ha iniciado sesión intenta entrar al perfil, será redireccionado al login.
-  if(localStorage.getItem("user") == null && !window.location.href.includes('home.html')) { 
+  if (localStorage.getItem("user") == null && !window.location.href.includes('home.html')) { 
     window.location = 'index.html'
   }
 
